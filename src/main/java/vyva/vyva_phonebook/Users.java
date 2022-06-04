@@ -15,23 +15,15 @@ public class Users {
         return isim;
     }
 
-    public void setIsim(String isim) {
-        this.isim = isim;
-    }
 
     public String getSoyisim() {
         return soyisim;
     }
 
-    public void setSoyisim(String soyisim) {
-        this.soyisim = soyisim;
-    }
 
     public String getTelNo() {
         return telNo;
     }
 
-    public void setTelNo(String telNo) {
-        this.telNo = telNo;
-    }
+
 }

@@ -38,22 +38,28 @@ public class HelloController implements Initializable {
     @FXML
     private TextField araInput;
 
+    //Uygulama başlatıgında ListView'a databaseden verilein yazılması için kullanılır.
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         myListView.getItems().setAll(DbConnection.UserslinkedList.getList());
     }
 
+    //Yeni kisi eklemek icin kullanılır.
     @FXML
     public void ekle() {
-        insert(telNoInput.getText(), isimInput.getText(), soyisimInput.getText());
+        insert(telNoInput.getText(), isimInput.getText(), soyisimInput.getText());//textFieldlardan veriler çekilerek
+        // insert fonksiyonuna gönderilir
+        //Textfieldlar temizlenir
         isimInput.clear();
         soyisimInput.clear();
         telNoInput.clear();
         UsersSelectAll();
+        //listView kişi eklendiği için güncellenir.
         myListView.getItems().setAll(DbConnection.UserslinkedList.getList());
 
     }
 
+    //Database yeni kişi ekler
     public void insert(String telNo, String isim, String soyisim) {
         String sql = "INSERT INTO users(isim, soyisim, telNo) VALUES(?,?,?)";
         try (Connection conn = Connect();
@@ -69,6 +75,7 @@ public class HelloController implements Initializable {
         }
     }
 
+    //ListViewda seçilen kişiyi siler.
     @FXML
     public void sil() {
         delete();
@@ -76,6 +83,7 @@ public class HelloController implements Initializable {
         myListView.getItems().setAll(DbConnection.UserslinkedList.getList());
     }
 
+    //Databaseden seçilen kişiyi  silmek için kullanılır.
     public void delete() {
         String sql = "DELETE FROM users WHERE isim = ?";
         ArrayList array = new ArrayList();
@@ -97,10 +105,13 @@ public class HelloController implements Initializable {
 
     }
 
+    //ALfabetik olarak isimlerin sıralanması için kullanılır.
     @FXML
     public void isimSırala() {
         ArrayList<String> arrayList = DbConnection.UserslinkedList.getList();
+
         BubbleSort.sort(arrayList);
+        //Database yeni sıralanmış haliyle güncellenir.
         DbConnection.clearAll(arrayList);
         DbConnection.updateAll(arrayList);
 
@@ -108,7 +119,7 @@ public class HelloController implements Initializable {
 
     }
 
-
+//Girilen değere gören sonuç veren bulma algoritması
     @FXML
     public void bul() {
         bulunan.clear();
@@ -116,18 +127,19 @@ public class HelloController implements Initializable {
         String araInp = araInput.getText();
         araInput.clear();
         String str;
-
-        String splited[]=new String[arrayList.size()];
+        //linkedlistten arraylisten çverilen değer bölünerek isim olarak ayrılı ve bu isim değerleri
+        //trie'ye eklenir.
+        String splited[] = new String[arrayList.size()];
         for (int i = 0; i < arrayList.size(); i++) {
             str = (String) arrayList.get(i);
             String splitStr[] = str.split("\\s+");
-            splited[i]=splitStr[0];
+            splited[i] = splitStr[0];
 
         }
         trie.insertIntoTrie(splited);
-        trie.displayContacts(araInp,bulunan);
+        trie.displayContacts(araInp, bulunan);
     }
-
+//Aranacak kişiler için oluşturulana stacka kişi ekler.
     @FXML
     public void aranacakEkle() {
         ArrayList<String> arrayList = DbConnection.UserslinkedList.getList();
@@ -139,7 +151,7 @@ public class HelloController implements Initializable {
 
 
     }
-
+//aranan kişileri stackten poplar.
     @FXML
     public void ara() {
         try {

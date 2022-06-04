@@ -18,17 +18,16 @@ public class BubbleSort {
                 if (names[i].compareTo(names[j]) > 0) {
                     // swapping
                     temp = names[i];
-                    tempA=arrayList.get(i);
+                    tempA = arrayList.get(i);
                     names[i] = names[j];
-                    arrayList.set(i,arrayList.get(j));
-                    arrayList.set(j,tempA);
+                    arrayList.set(i, arrayList.get(j));
+                    arrayList.set(j, tempA);
                     names[j] = temp;
                 }
             }
         }
         return arrayList;
     }
-
 
 
 }
