@@ -2,8 +2,9 @@ package vyva.vyva_phonebook;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -15,17 +16,19 @@ import java.util.ResourceBundle;
 
 import static vyva.vyva_phonebook.DbConnection.Connect;
 import static vyva.vyva_phonebook.DbConnection.UsersSelectAll;
-import static vyva.vyva_phonebook.TrieMain.printSorted;
+
 
 public class HelloController implements Initializable {
     public static Stack stack = new Stack();
+    Trie trie = new Trie();
 
     @FXML
     private ListView myListView;
     @FXML
     private ListView aranacakLV;
     @FXML
-    private ListView donusLV;
+    private TextArea bulunan;
+
     @FXML
     private TextField isimInput;
     @FXML
@@ -34,17 +37,6 @@ public class HelloController implements Initializable {
     private TextField telNoInput;
     @FXML
     private TextField araInput;
-    @FXML
-    private Button ekle;
-    @FXML
-    private Button sil;
-    @FXML
-    private Button isimSırala;
-    @FXML
-    private Button soyisimSırala;
-    @FXML
-    private Button ara;
-
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -109,17 +101,31 @@ public class HelloController implements Initializable {
     public void isimSırala() {
         ArrayList<String> arrayList = DbConnection.UserslinkedList.getList();
         BubbleSort.sort(arrayList);
-        myListView.getItems().setAll(arrayList);
+        DbConnection.clearAll(arrayList);
+        DbConnection.updateAll(arrayList);
 
+        myListView.getItems().setAll(arrayList);
 
     }
 
 
     @FXML
     public void bul() {
+        bulunan.clear();
+        ArrayList<String> arrayList = DbConnection.UserslinkedList.getList();
         String araInp = araInput.getText();
         araInput.clear();
-        System.out.println(araInp);
+        String str;
+
+        String splited[]=new String[arrayList.size()];
+        for (int i = 0; i < arrayList.size(); i++) {
+            str = (String) arrayList.get(i);
+            String splitStr[] = str.split("\\s+");
+            splited[i]=splitStr[0];
+
+        }
+        trie.insertIntoTrie(splited);
+        trie.displayContacts(araInp,bulunan);
     }
 
     @FXML
@@ -133,23 +139,17 @@ public class HelloController implements Initializable {
 
 
     }
+
     @FXML
-    public void ara(){
-        try{
+    public void ara() {
+        try {
             stack.pop();
             aranacakLV.getItems().setAll(stack.getAll());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    @FXML
-    public void donusEkle() {
 
-    }
-
-    @FXML
-    public void donus() {
-    }
 }

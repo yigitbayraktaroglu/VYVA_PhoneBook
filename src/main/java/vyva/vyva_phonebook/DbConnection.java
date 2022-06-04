@@ -37,12 +37,56 @@ public class DbConnection {
         }
 
     }
-    public static void update(ArrayList<String> arrayList){
+    public static void clearAll(ArrayList arrayList){
+        String isim;
+        for(int i=0;i<arrayList.size();i++){
+            String str = (String) arrayList.get(i);
+            String[] splitStr = str.split("\\s+");
+            isim=splitStr[0];
+            delete(isim);
+        }
 
     }
+    public static void delete(String isim) {
+        String sql = "DELETE FROM users WHERE isim = ?";
 
-    public static void main(String[] args) {
-        UsersSelectAll();
-        UserslinkedList.printList();
+        try (Connection conn = Connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, isim);
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+public static void updateAll(ArrayList arrayList){
+        String isim,soyisim,telNo;
+        for(int i=0;i<arrayList.size();i++){
+            String str = (String) arrayList.get(i);
+            String[] splitStr = str.split("\\s+");
+            isim=splitStr[0];
+            soyisim=splitStr[1];
+            telNo=splitStr[2];
+            insert(telNo,isim,soyisim);
+        }
+
+    }
+    public static void insert(String telNo, String isim, String soyisim) {
+        String sql = "INSERT INTO users(isim, soyisim, telNo) VALUES(?,?,?)";
+        try (Connection conn = Connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, isim);
+            pstmt.setString(2, soyisim);
+            pstmt.setString(3, telNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

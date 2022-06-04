@@ -1,6 +1,7 @@
 package vyva.vyva_phonebook;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LinkedList {
     Node head; // head of list
@@ -53,16 +54,8 @@ public class LinkedList {
         head = new_node;
     }
 
-    /* This function prints contents of linked list starting
-    from the given node */
-    public void printList()
-    {
-        Node tnode = head;
-        while (tnode != null) {
-            System.out.print(tnode.data.getIsim() + " "+tnode.data.getSoyisim()+" "+tnode.data.getTelNo()+"\n");
-            tnode = tnode.next;
-        }
-    }
+
+
     public ArrayList getList()
     {
         ArrayList<String> arrayList = new ArrayList<>();
@@ -71,6 +64,7 @@ public class LinkedList {
             arrayList.add(tnode.data.getIsim() + " "+tnode.data.getSoyisim()+" "+tnode.data.getTelNo());
             tnode = tnode.next;
         }
+        Collections.reverse(arrayList);
         return arrayList;
     }
 
