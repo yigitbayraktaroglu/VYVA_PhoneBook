@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vyva.vyva_phonebook.HelloController">
+   <children>
+      <Button fx:id="sil" layoutX="461.0" layoutY="14.0" mnemonicParsing="false" onAction="#sil" prefHeight="26.0" prefWidth="124.0" text="Seçili Numarayı Sil" />
+      <ListView fx:id="myListView" layoutX="14.0" layoutY="14.0" prefHeight="382.0" prefWidth="398.0" />
+      <Button fx:id="ekle" layoutX="497.0" layoutY="360.0" mnemonicParsing="false" onAction="#ekle" text="Ekle" />
+      <TextField fx:id="isimInput" layoutX="461.0" layoutY="282.0" prefHeight="26.0" prefWidth="124.0" promptText="İsim" />
+      <TextField fx:id="soyisimInput" layoutX="461.0" layoutY="308.0" prefHeight="26.0" prefWidth="124.0" promptText="Soyisim" />
+      <TextField fx:id="telNoInput" layoutX="461.0" layoutY="334.0" prefHeight="26.0" prefWidth="124.0" promptText="Telefon Numarası" />
+      <Button fx:id="isimSırala" layoutX="461.0" layoutY="58.0" mnemonicParsing="false" onAction="#isimSırala" text="Alfabetik Sırala(İsim)" />
+      <TextField fx:id="araInput" layoutX="462.0" layoutY="93.0" prefHeight="26.0" prefWidth="124.0" promptText="Bul" />
+      <Button fx:id="ara" layoutX="507.0" layoutY="127.0" mnemonicParsing="false" onAction="#bul" text="Bul" />
+      <ListView fx:id="aranacakLV" layoutX="607.0" layoutY="14.0" prefHeight="139.0" prefWidth="110.0" />
+      <ListView fx:id="donusLV" layoutX="607.0" layoutY="222.0" prefHeight="139.0" prefWidth="110.0" />
+      <Button fx:id="ara1" layoutX="613.0" layoutY="360.0" mnemonicParsing="false" onAction="#donus" text="Geri Dönüş Yap" />
+      <Button fx:id="ara11" layoutX="645.0" layoutY="156.0" mnemonicParsing="false" onAction="#ara" text="Ara" />
+      <Button layoutX="479.0" layoutY="209.0" mnemonicParsing="false" onAction="#aranacakEkle" text="Aranacak Ekle" />
+      <Button layoutX="474.0" layoutY="243.0" mnemonicParsing="false" onAction="#donusEkle" text="Geri Dönüş Ekle" />
+   </children>
+</AnchorPane>
